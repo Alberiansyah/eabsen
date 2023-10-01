@@ -1,0 +1,20 @@
+<IfModule mod_rewrite.c>
+RewriteEngine on
+# Allowed the url has access to the php file without the .php extension
+RewriteCond %{REQUEST_FILENAME}.php -f
+RewriteRule ^(.*)$ $1.php  [NC,L]
+RewriteRule ^folder/?$ - [F,L]
+
+# Force remove .php extension, if manually changed in url
+RewriteCond %{THE_REQUEST} /([^.]+)\.php [NC]
+RewriteRule ^ /%1 [NC,L,R]
+
+# Remove i=... in url
+RewriteCond %{QUERY_STRING} ^(.*)i=[^&]+(.*)$ [NC]
+RewriteRule ^(.*)$ /$1?%1%2 [R=301,L]
+</IfModule>
+
+Options All -Indexes
+ErrorDocument 403 /Joki/gilang/403-page.php
+ErrorDocument 404 /Joki/gilang/404-page.php
+ErrorDocument 500 /Joki/gilang/500-page.php
