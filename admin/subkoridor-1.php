@@ -1,6 +1,7 @@
 <?php
 require __DIR__ . "/../functions/functions.php";
 require __DIR__ . '/../vendor/autoload.php';
+require __DIR__ . "/../functions/session-check.php";
 
 use Carbon\Carbon;
 
@@ -22,10 +23,9 @@ $no = 1;
                     <div class="card-body d-flex justify-content-between align-items-center">
                         <h5 class="card-title mb-4">Data Koridor 1</h5>
                         <div class="d-flex">
-                            <a href="to-pdf" class="screen-only"><button class="btn btn-sm btn-primary btn-indent"><i class="fas fa-file-pdf"></i></button></a>
-                            <a href="to-excel" class="screen-only"><button class="btn btn-sm btn-primary btn-indent"><i class="fas fa-file-excel"></i></button></a>
-                            <a href="#" id="printButton" class="screen-only"><button class="btn btn-sm btn-primary btn-indent"><i class="fa fa-print"></i></button></a>
-
+                            <a href="cetak-subkoridor-1" target="_blank" class="screen-only"><button class="btn btn-sm btn-primary btn-indent"><i class="fas fa-file-pdf"></i></button></a>
+                            <a href="to-excel" target="_blank" class="screen-only"><button class="btn btn-sm btn-primary btn-indent"><i class="fas fa-file-excel"></i></button></a>
+                            <a href="#" id="printButton" target="_blank" class="screen-only"><button class="btn btn-sm btn-primary btn-indent"><i class="fa fa-print"></i></button></a>
                         </div>
                     </div>
                     <div class="container mb-3">
