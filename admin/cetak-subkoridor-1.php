@@ -11,6 +11,7 @@ $query = tampilData("SELECT karyawan.*, absen.*
                      FROM karyawan
                      INNER JOIN absen ON absen.id_karyawan = karyawan.id_karyawan
                      WHERE DATE(absen.absen_pagi) = '$today' OR DATE(absen.absen_sore) = '$today'");
+$countQuery = count($query);
 $no = 1;
 $options = new \Dompdf\Options();
 $options->set('isPhpEnabled', true);
@@ -71,6 +72,12 @@ $html = '
                                         <th>Jumlah Kehadiran</th>
                                     </tr>';
 
+if ($countQuery < 1) {
+    $html .=
+        '<tr>
+        <td colspan="5" style="text-align: center;">Belum terdapat data.</td>
+    </tr>';
+}
 foreach ($query as $data) {
     $html .= '<tr>
                 <td>' . $no++ . '</td>

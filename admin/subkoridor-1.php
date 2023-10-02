@@ -8,9 +8,12 @@ use Carbon\Carbon;
 Carbon::setLocale('id');
 $today = Carbon::now('Asia/Jakarta')->toDateString();
 $query = tampilData("SELECT karyawan.*, absen.*
-                     FROM karyawan
-                     INNER JOIN absen ON absen.id_karyawan = karyawan.id_karyawan
-                     WHERE DATE(absen.absen_pagi) = '$today' OR DATE(absen.absen_sore) = '$today'");
+                        FROM karyawan
+                        INNER JOIN absen ON absen.id_karyawan = karyawan.id_karyawan
+                        WHERE (DATE(absen.absen_pagi) = '$today' OR DATE(absen.absen_sore) = '$today')
+                        AND karyawan.kategori = 'Koridor 1'
+                     ");
+$countQuery = count($query);
 $no = 1;
 ?>
 <?php require __DIR__ . '/../wp-layouts/header.php' ?>
@@ -24,7 +27,7 @@ $no = 1;
                         <h5 class="card-title mb-4">Data Koridor 1</h5>
                         <div class="d-flex">
                             <a href="cetak-subkoridor-1" target="_blank" class="screen-only"><button class="btn btn-sm btn-primary btn-indent"><i class="fas fa-file-pdf"></i></button></a>
-                            <a href="to-excel" target="_blank" class="screen-only"><button class="btn btn-sm btn-primary btn-indent"><i class="fas fa-file-excel"></i></button></a>
+                            <a href="excel-subkoridor-1" target="_blank" class="screen-only" id="to-excel"><button class="btn btn-sm btn-primary btn-indent"><i class="fas fa-file-excel"></i></button></a>
                             <a href="#" id="printButton" target="_blank" class="screen-only"><button class="btn btn-sm btn-primary btn-indent"><i class="fa fa-print"></i></button></a>
                         </div>
                     </div>
@@ -38,6 +41,11 @@ $no = 1;
                                     <th>Sore</th>
                                     <th>Jumlah Kehadiran</th>
                                 </tr>
+                                <?php if ($countQuery < 1) : ?>
+                                    <tr>
+                                        <td colspan="5" style="text-align: center;">Belum terdapat data.</td>
+                                    </tr>
+                                <?php endif; ?>
                                 <?php foreach ($query as $data) :
                                 ?>
                                     <tr>
@@ -70,6 +78,7 @@ $no = 1;
 </div>
 
 <?php require __DIR__ . '/../wp-layouts/footer.php' ?>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.4/xlsx.full.min.js"></script>
 <script>
     $(document).ready(function() {
         $('#printButton').click(function() {
