@@ -10,7 +10,6 @@ $today = Carbon::now('Asia/Jakarta')->toDateString();
 $query = tampilData("SELECT karyawan.*, absen.*
                         FROM karyawan
                         INNER JOIN absen ON absen.id_karyawan = karyawan.id_karyawan
-                        WHERE (DATE(absen.absen_pagi) = '$today' OR DATE(absen.absen_sore) = '$today')
                         AND karyawan.kategori = 'Koridor 1'
                      ");
 $countQuery = count($query);
@@ -28,6 +27,7 @@ $no = 1;
                         <div class="d-flex">
                             <a href="cetak-subkoridor-1" target="_blank" class="screen-only"><button class="btn btn-sm btn-primary btn-indent"><i class="fas fa-file-pdf"></i></button></a>
                             <a href="excel-subkoridor-1" target="_blank" class="screen-only" id="to-excel"><button class="btn btn-sm btn-primary btn-indent"><i class="fas fa-file-excel"></i></button></a>
+                            <a href="excel-2" target="_blank" class="screen-only" id="to-excel"><button class="btn btn-sm btn-primary btn-indent"><i class="fas fa-file-excel"></i></button></a>
                             <a href="#" id="printButton" target="_blank" class="screen-only"><button class="btn btn-sm btn-primary btn-indent"><i class="fa fa-print"></i></button></a>
                         </div>
                     </div>

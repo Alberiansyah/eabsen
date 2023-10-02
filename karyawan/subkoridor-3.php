@@ -22,7 +22,8 @@ if (($jamSekarang >= $pagiMulai && $jamSekarang < $pagiBerakhir) || ($jamSekaran
     header('Location: ../index');
     exit;
 }
-$query = tampilData("SELECT * FROM karyawan");
+
+$query = tampilData("SELECT * FROM karyawan WHERE kategori = 'Koridor 3'");
 ?>
 <?php require __DIR__ . '/../wp-layouts/header.php' ?>
 
@@ -36,11 +37,11 @@ $query = tampilData("SELECT * FROM karyawan");
                         <div class="row">
                             <div class="col-xl-6">
                                 <div class="form-group mt-3">
-                                    <label for="nama" class="form-label">Nama</label>
-                                    <select name="nama" id="nama" class="form-control" required>
+                                    <label for="id_karyawan" class="form-label">Nama</label>
+                                    <select name="id_karyawan" id="id_karyawan" class="form-control" required>
                                         <option value="">-- Pilih Nama --</option>
                                         <?php foreach ($query as $data) : ?>
-                                            <option value="<?= $data->nama ?>"><?= $data->nama ?></option>
+                                            <option value="<?= $data->id_karyawan ?>"><?= $data->nama ?></option>
                                         <?php endforeach; ?>
                                     </select>
                                 </div>
@@ -52,10 +53,10 @@ $query = tampilData("SELECT * FROM karyawan");
                             <div class="col-xl-6">
                                 <div class="form-group mt-3">
                                     <label for="jabatan" class="form-label">Jabatan</label>
-                                    <select name="jabatan" id="jabatan" class="form-control" required>
-                                        <option value="">-- Pilih Jabatan --</option>
-                                        <option value="Sopir">Sopir</option>
-                                        <option value="Kondektur">Kondektur</option>
+                                    <select name="jabatan" id="jabatan" class="form-control" required readonly>
+                                        <?php foreach ($query as $data) : ?>
+                                            <option value="<?= $data->jabatan ?>" class="<?= $data->id_karyawan ?>"><?= $data->jabatan ?></option>
+                                        <?php endforeach; ?>
                                     </select>
                                 </div>
                                 <div class="form-group mt-3">
@@ -88,7 +89,19 @@ $query = tampilData("SELECT * FROM karyawan");
     </div>
 </div>
 <?php require __DIR__ . '/../wp-layouts/footer.php' ?>
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-chained/1.0.1/jquery.chained.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function() {
+        $("#jabatan").chained("#id_karyawan");
+        $("#nama").on("change", function() {
+            var selectedName = $(this).val(); // Dapatkan nama yang dipilih
+            // Pilih otomatis jabatan yang sesuai dengan nama yang dipilih
+            $("#jabatan option").prop("selected", false); // Reset pilihan jabatan
+            $("#jabatan option." + selectedName).prop("selected", true); // Pilih jabatan sesuai nama
+            $("#jabatan").trigger("change"); // Trigger event change pada dropdown "Jabatan"
+        });
+    });
+</script>
 <script>
     function updateDateTime() {
         var waktuElement = $('#waktu');
