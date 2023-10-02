@@ -11,7 +11,7 @@ try {
     echo $e->getMessage();
 }
 
-$hostToRoot = 'http://localhost/Joki/gilang/';
+$hostToRoot = 'http://localhost/eabsen/';
 $title = 'ABSENSI BLUD UPT ANGKUTAN KOTA BANDUNG';
 $version = 'Beta Build 1.0 (Bug are expected)';
 
