@@ -82,8 +82,8 @@ foreach ($query as $data) {
     $html .= '<tr>
                 <td>' . $no++ . '</td>
                 <td>' . $data->nama . '</td>
-                <td>' . ($data->absen_pagi !== null ? Carbon::parse($data->absen_pagi)->translatedFormat('j F Y H:i:s') : '') . '</td>
-                <td>' . ($data->absen_sore !== null ? Carbon::parse($data->absen_sore)->translatedFormat('j F Y H:i:s') : '') . '</td>';
+                <td>' . ($data->absen_pagi !== null ? Carbon::parse($data->absen_pagi)->translatedFormat('d F Y H:i:s') : '') . '</td>
+                <td>' . ($data->absen_sore !== null ? Carbon::parse($data->absen_sore)->translatedFormat('d F Y H:i:s') : '') . '</td>';
 
     $counter = 0;
     if ($data->absen_pagi !== null) {

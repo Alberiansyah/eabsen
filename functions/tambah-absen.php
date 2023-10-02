@@ -7,6 +7,7 @@ use Carbon\Carbon;
 
 $carbon = Carbon::now('Asia/Jakarta');
 
+
 function upload($post)
 {
     $namaFile = $_FILES['foto']['name'];
@@ -37,11 +38,24 @@ function upload($post)
     return $namaFileBaru;
 }
 
+
+function editAbsen($request)
+{
+    global $pdo, $alasan, $alasanCek, $absenSore, $id_karyawan;
+    $pembatas = ['```'];
+    $alasanFinal = $alasanCek . '' . implode("", $pembatas) . '' . $alasan;
+    $query = $pdo->prepare($request);
+    $query->execute([$alasanFinal, $absenSore, $id_karyawan]);
+
+    return $query;
+}
+
+$waktuHariIni = $carbon->format('Y-m-d');
 $id_karyawan = htmlspecialchars($_POST['id_karyawan']);
 $foto = upload($_POST);
 // $jabatan = htmlspecialchars($_POST['jabatan']);
 $keterangan = htmlspecialchars($_POST['keterangan']);
-$alasan = htmlspecialchars($_POST['alasan']) ? htmlspecialchars($_POST['alasan']) : "";
+$alasan = htmlspecialchars($_POST['alasan']) ? htmlspecialchars($_POST['alasan']) : null;
 $alamat = $_POST['alamat'];
 
 date_default_timezone_set('Asia/Jakarta');
@@ -54,7 +68,7 @@ $pagiBerakhir = 9;
 
 // Waktu absensi sore: 16:30 - 18:00
 $soreMulai = 16;
-$soreBerakhir = 24;
+$soreBerakhir = 18;
 
 if (($jamSekarang >= $pagiMulai && $jamSekarang < $pagiBerakhir) || ($jamSekarang == $pagiBerakhir && $menitSekarang <= 30)) {
     $absenPagiCek = $carbon->format('Y-m-d H:i:s');
@@ -65,6 +79,25 @@ if (($jamSekarang >= $pagiMulai && $jamSekarang < $pagiBerakhir) || ($jamSekaran
 $absenPagi = isset($absenPagiCek) ? $absenPagiCek : null;
 $absenSore = isset($absenSoreCek) ? $absenSoreCek : null;
 
-$query = $pdo->prepare("INSERT INTO absen (id_karyawan, foto, keterangan, alasan, alamat, absen_pagi, absen_sore) VALUE(?, ?, ?, ?, ?, ?, ?)");
-$query->execute([$id_karyawan, $foto, $keterangan, $alasan, $alamat, $absenPagi, $absenSore]);
-header('Location: ../karyawan/berhasil');
+$queryEdit = tampilDataFirst("SELECT karyawan.*, absen.*
+                        FROM karyawan
+                        INNER JOIN absen ON absen.id_karyawan = karyawan.id_karyawan
+                        WHERE karyawan.id_karyawan = '$id_karyawan'
+                        AND absen.absen_pagi IS NOT NULL 
+                        AND (DATE(absen.absen_pagi) = '$waktuHariIni' OR DATE(absen.absen_sore) = '$waktuHariIni')
+");
+
+if ($queryEdit) {
+    $alasanCek = $queryEdit->alasan;
+    $query = editAbsen("UPDATE absen SET
+                        alasan = ?,
+                        absen_sore = ?
+                        WHERE id_karyawan = ?
+            ");
+    header('Location: ../karyawan/berhasil');
+} else {
+
+    $query = $pdo->prepare("INSERT INTO absen (id_karyawan, foto, keterangan, alasan, alamat, absen_pagi, absen_sore) VALUE(?, ?, ?, ?, ?, ?, ?)");
+    $query->execute([$id_karyawan, $foto, $keterangan, $alasan, $alamat, $absenPagi, $absenSore]);
+    header('Location: ../karyawan/berhasil');
+}

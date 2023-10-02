@@ -39,8 +39,8 @@ foreach ($query as $row) {
 
     $worksheet->setCellValue('A' . $data, $no++);
     $worksheet->setCellValue('B' . $data, $row->nama);
-    $worksheet->setCellValue('C' . $data, $row->absen_pagi !== null ? Carbon::parse($row->absen_pagi)->translatedFormat('j F Y H:i:s') : '');
-    $worksheet->setCellValue('D' . $data, $row->absen_sore !== null ? Carbon::parse($row->absen_sore)->translatedFormat('j F Y H:i:s') : '');
+    $worksheet->setCellValue('C' . $data, $row->absen_pagi !== null ? Carbon::parse($row->absen_pagi)->translatedFormat('d F Y H:i:s') : '');
+    $worksheet->setCellValue('D' . $data, $row->absen_sore !== null ? Carbon::parse($row->absen_sore)->translatedFormat('d F Y H:i:s') : '');
 
     // Hitung jumlah kehadiran
     if ($row->absen_pagi !== null) {

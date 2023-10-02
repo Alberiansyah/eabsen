@@ -12,11 +12,11 @@ function tampilData($request)
     return $row;
 }
 
-function tampilDataFirst($request, $array)
+function tampilDataFirst($request)
 {
     global $pdo;
     $query = $pdo->prepare($request);
-    $query->execute($array);
+    $query->execute();
     $row = $query->fetch(PDO::FETCH_OBJ);
 
     return $row;
