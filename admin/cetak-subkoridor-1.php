@@ -111,6 +111,6 @@ $html .= '                      </table>
 
 $dompdf->loadHtml($html);
 $dompdf->set_option('isRemoteEnabled', true);
-$dompdf->setPaper('A4', 'portrait');
+$dompdf->setPaper('legal', 'landscape');
 $dompdf->render();
 $dompdf->stream('subkoridor-1.pdf', array('Attachment' => 0));
