@@ -7,11 +7,16 @@ use Carbon\Carbon;
 
 Carbon::setLocale('id');
 $today = Carbon::now('Asia/Jakarta')->toDateString();
+// $query = tampilData("SELECT karyawan.*, absen.*
+// FROM karyawan
+// INNER JOIN absen ON absen.id_karyawan = karyawan.id_karyawan
+// WHERE DATE(absen.absen_pagi) = '$today' OR DATE(absen.absen_sore) = '$today'
+// AND karyawan.kategori = 'Koridor 1'
+//                      ");
 $query = tampilData("SELECT karyawan.*, absen.*
-                        FROM karyawan
-                        INNER JOIN absen ON absen.id_karyawan = karyawan.id_karyawan
-                        AND karyawan.kategori = 'Koridor 1'
-                     ");
+                     FROM karyawan
+                     INNER JOIN absen ON absen.id_karyawan = karyawan.id_karyawan
+                     WHERE DATE(absen.absen_pagi) = '$today' OR DATE(absen.absen_sore) = '$today'");
 $countQuery = count($query);
 $no = 1;
 ?>
@@ -23,12 +28,12 @@ $no = 1;
             <div class="row">
                 <div class="card">
                     <div class="card-body d-flex justify-content-between align-items-center">
-                        <h5 class="card-title mb-4">Data Koridor 1</h5>
+                        <h5 class="card-title mb-4">Data rekap Koridor 1, <?= Carbon::parse($today)->isoFormat('dddd'); ?> <?= Carbon::parse($today)->translatedFormat('d F Y'); ?></h5>
                         <div class="d-flex">
-                            <a href="cetak-subkoridor-1" target="_blank" class="screen-only"><button class="btn btn-sm btn-primary btn-indent"><i class="fas fa-file-pdf"></i></button></a>
-                            <a href="excel-subkoridor-1" target="_blank" class="screen-only" id="to-excel"><button class="btn btn-sm btn-primary btn-indent"><i class="fas fa-file-excel"></i></button></a>
-                            <a href="excel-2" target="_blank" class="screen-only" id="to-excel"><button class="btn btn-sm btn-primary btn-indent"><i class="fas fa-file-excel"></i></button></a>
-                            <a href="#" id="printButton" target="_blank" class="screen-only"><button class="btn btn-sm btn-primary btn-indent"><i class="fa fa-print"></i></button></a>
+                            <a href="cetak-subkoridor-1" target="_blank" class="screen-only" title="Rekap PDF Per-hari"><button class="btn btn-sm btn-primary btn-indent"><i class="fas fa-file-pdf"></i></button></a>
+                            <a href="excel-subkoridor-1" target="_blank" class="screen-only" id="to-excel" title="Rekap Excel Per-hari"><button class="btn btn-sm btn-primary btn-indent"><i class="fas fa-file-excel"></i></button></a>
+                            <a href="to-excel?bulan=<?= Carbon::parse($today)->translatedFormat('F') ?>" target="_blank" class="screen-only" title="Rekap Excel Per-bulan"><button class="btn btn-sm btn-primary btn-indent"><i class="fas fa-file-excel"></i></button></a>
+                            <a href="#" id="printButton" target="_blank" class="screen-only" title="Print"><button class="btn btn-sm btn-primary btn-indent"><i class="fa fa-print"></i></button></a>
                         </div>
                     </div>
                     <div class="container mb-3">

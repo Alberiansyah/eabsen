@@ -15,6 +15,6 @@ RewriteRule ^(.*)$ /$1?%1%2 [R=301,L]
 </IfModule>
 
 Options All -Indexes
-ErrorDocument 403 /eabsen/403-page.php
-ErrorDocument 404 /eabsen/404-page.php
-ErrorDocument 500 /eabsen/500-page.php
+ErrorDocument 403 /eabsen/wp-layouts/403-page.php
+ErrorDocument 404 /eabsen/wp-layouts/404-page.php
+ErrorDocument 500 /eabsen/wp-layouts/500-page.php

@@ -3,13 +3,13 @@ require __DIR__ . "/../functions/functions.php";
 require __DIR__ . '/../vendor/autoload.php';
 
 use Carbon\Carbon;
-use Dompdf\Dompdf;
 
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
 Carbon::setLocale('id');
 $today = Carbon::now('Asia/Jakarta')->toDateString();
+$getDay = Carbon::parse($today)->isoFormat('dddd');
 $query = tampilData("SELECT karyawan.*, absen.*
                      FROM karyawan
                      INNER JOIN absen ON absen.id_karyawan = karyawan.id_karyawan
@@ -79,7 +79,7 @@ foreach ($query as $row) {
 $writer = new Xlsx($spreadsheet);
 
 // Keluarkan file Excel
-$filename = 'data_kehadiran.xlsx'; // Nama file Excel yang akan dihasilkan
+$filename = 'Rekap Absen ' . $getDay . '.xlsx'; // Nama file Excel yang akan dihasilkan
 header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
 header('Content-Disposition: attachment;filename="' . $filename . '"');
 header('Cache-Control: max-age=0');

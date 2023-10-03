@@ -17,13 +17,12 @@ $dataPerBulanNama = [];
 // Loop untuk menghasilkan tanggal dan bulan
 while ($tanggalAwal->year <= Carbon::now()->year) {
     $tanggalString = $tanggalAwal->translatedFormat('d F Y');
-    $tanggalStringNama = $tanggalAwal->translatedFormat('D');
+    $tanggalStringNama = $tanggalAwal->isoFormat('dddd');
     $bulan = $tanggalAwal->translatedFormat('F'); // Mendapatkan nama bulan
 
     // Menambahkan tanggal ke array yang sesuai dengan bulannya
     $dataPerBulan[$bulan][] = $tanggalString;
     $dataPerBulanNama[$bulan][] = $tanggalStringNama;
-
     $tanggalAwal->addDay(); // Menambahkan 1 hari ke tanggal
 }
 // foreach ($dataPerBulan as $bulan => $tanggal) {
