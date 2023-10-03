@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 02, 2023 at 07:11 AM
+-- Generation Time: Oct 03, 2023 at 09:56 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -33,7 +33,7 @@ CREATE TABLE `absen` (
   `foto` varchar(255) NOT NULL,
   `keterangan` varchar(255) NOT NULL,
   `alamat` varchar(255) NOT NULL,
-  `alasan` text NOT NULL,
+  `alasan` text DEFAULT NULL,
   `absen_pagi` datetime DEFAULT NULL,
   `absen_sore` datetime DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
@@ -45,9 +45,12 @@ CREATE TABLE `absen` (
 --
 
 INSERT INTO `absen` (`id_absen`, `id_karyawan`, `foto`, `keterangan`, `alamat`, `alasan`, `absen_pagi`, `absen_sore`, `created_at`, `update_at`) VALUES
-(2, 14, '5b24034d9e5f687d4a277376cebd3b548b11b9b2e753759be2c3f925a81e4b07_2023_10_01_14.png', 'Hadir', 'Gang Gagok Handoko, Situ Saeur, Bojongloa Kidul, Bandung, West Java, Java, 40232, Indonesia', '', NULL, '2023-10-01 20:10:27', '2023-10-01 13:10:27', '2023-10-01 13:10:27'),
-(3, 3, '9cd5ff1c3d3b5f0934d086320f828bd35436265f5bcfdef8c6d73877ed5ff177_2023_10_01_3.jpg', 'Hadir', 'Gang Gagok Handoko, Situ Saeur, Bojongloa Kidul, Bandung, West Java, Java, 40232, Indonesia', '', NULL, '2023-10-01 20:15:30', '2023-10-01 13:15:30', '2023-10-01 13:15:30'),
-(5, 16, '83867aef8bef77fa1c3becfab871240edb22788f98b1db42aae632168d9612a2_2023_10_02_16.png', 'Hadir', 'Gang Gagok Handoko, Situ Saeur, Bojongloa Kidul, Bandung, West Java, Java, 40232, Indonesia', '', '2023-10-02 11:08:09', NULL, '2023-10-02 04:08:09', '2023-10-02 04:08:09');
+(1, 1, 'dd48fa854c8d66269963b6e6c14796608b511ea05776e48e35d2d25c4dd7eb55_2023_10_02_1.png', 'Hadir', 'Gang Gagok Handoko, Situ Saeur, Bojongloa Kidul, Bandung, West Java, Java, 40232, Indonesia', '```Aku ada', '2023-10-02 08:24:03', '2023-10-02 17:55:00', '2023-10-01 18:24:03', '2023-10-01 18:24:03'),
+(2, 1, 'dd48fa854c8d66269963b6e6c14796608b511ea05776e48e35d2d25c4dd7eb55_2023_10_02_1.png', 'Hadir', 'Gang Gagok Handoko, Situ Saeur, Bojongloa Kidul, Bandung, West Java, Java, 40232, Indonesia', '```Aku ada', '2023-10-03 08:24:03', '2023-10-03 17:55:00', '2023-10-01 18:24:03', '2023-10-01 18:24:03'),
+(3, 1, 'dd48fa854c8d66269963b6e6c14796608b511ea05776e48e35d2d25c4dd7eb55_2023_10_02_1.png', 'Hadir', 'Gang Gagok Handoko, Situ Saeur, Bojongloa Kidul, Bandung, West Java, Java, 40232, Indonesia', '```Aku ada', '2023-10-10 08:24:03', '2023-10-10 17:55:00', '2023-10-01 18:24:03', '2023-10-01 18:24:03'),
+(4, 2, 'dd48fa854c8d66269963b6e6c14796608b511ea05776e48e35d2d25c4dd7eb55_2023_10_02_1.png', 'Hadir', 'Gang Gagok Handoko, Situ Saeur, Bojongloa Kidul, Bandung, West Java, Java, 40232, Indonesia', '```Aku ada', '2023-10-06 08:24:03', '2023-10-06 17:55:00', '2023-10-01 18:24:03', '2023-10-01 18:24:03'),
+(5, 2, 'dd48fa854c8d66269963b6e6c14796608b511ea05776e48e35d2d25c4dd7eb55_2023_10_02_1.png', 'Hadir', 'Gang Gagok Handoko, Situ Saeur, Bojongloa Kidul, Bandung, West Java, Java, 40232, Indonesia', '```Aku ada', '2023-10-05 08:24:03', '2023-10-05 17:55:00', '2023-10-01 18:24:03', '2023-10-01 18:24:03'),
+(6, 10, 'dd48fa854c8d66269963b6e6c14796608b511ea05776e48e35d2d25c4dd7eb55_2023_10_02_1.png', 'Hadir', 'Gang Gagok Handoko, Situ Saeur, Bojongloa Kidul, Bandung, West Java, Java, 40232, Indonesia', '```Aku ada', '2023-10-04 08:24:03', '2023-10-04 17:55:00', '2023-10-01 18:24:03', '2023-10-01 18:24:03');
 
 -- --------------------------------------------------------
 
@@ -271,7 +274,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `absen`
 --
 ALTER TABLE `absen`
-  MODIFY `id_absen` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id_absen` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
