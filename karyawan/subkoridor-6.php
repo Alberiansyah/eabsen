@@ -23,7 +23,7 @@ if (($jamSekarang >= $pagiMulai && $jamSekarang < $pagiBerakhir) || ($jamSekaran
     exit;
 }
 
-$query = tampilData("SELECT * FROM karyawan WHERE kategori = 'Koridor 3'");
+$query = tampilData("SELECT * FROM karyawan WHERE kategori = 'Koridor 1'");
 ?>
 <?php require __DIR__ . '/../wp-layouts/header.php' ?>
 

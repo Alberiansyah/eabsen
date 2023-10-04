@@ -8,12 +8,15 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
 Carbon::setLocale('id');
+$koridor = $_GET['koridor'];
 $today = Carbon::now('Asia/Jakarta')->toDateString();
 $getDay = Carbon::parse($today)->isoFormat('dddd');
 $query = tampilData("SELECT karyawan.*, absen.*
-                     FROM karyawan
-                     INNER JOIN absen ON absen.id_karyawan = karyawan.id_karyawan
-                     WHERE DATE(absen.absen_pagi) = '$today' OR DATE(absen.absen_sore) = '$today'");
+                        FROM absen
+                        INNER JOIN karyawan ON karyawan.id_karyawan = absen.id_karyawan 
+                        WHERE (DATE(absen.absen_pagi) = '$today' OR DATE(absen.absen_sore) = '$today')
+                        AND karyawan.kategori = '$koridor'
+                        ");
 
 // Buat objek spreadsheet
 $spreadsheet = new Spreadsheet();

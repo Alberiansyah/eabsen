@@ -1,6 +1,5 @@
 <?php
 require __DIR__ . "/../functions/functions.php";
-require __DIR__ . "/../functions/has-login.php";
 require __DIR__ . '/../vendor/autoload.php';
 
 use Carbon\Carbon;
@@ -11,11 +10,11 @@ $jamSekarang = (int)explode(':', $waktuSekarang)[0];
 $menitSekarang = (int)explode(':', $waktuSekarang)[1];
 // Waktu absensi pagi: 06:00 - 09:00
 $pagiMulai = 6;
-$pagiBerakhir = 9;
+$pagiBerakhir = 12;
 
 // Waktu absensi sore: 16:30 - 18:00
 $soreMulai = 16;
-$soreBerakhir = 18;
+$soreBerakhir = 24;
 
 if (($jamSekarang >= $pagiMulai && $jamSekarang < $pagiBerakhir) || ($jamSekarang == $pagiBerakhir && $menitSekarang <= 30) || ($jamSekarang >= $soreMulai && $jamSekarang < $soreBerakhir) || ($jamSekarang == $soreBerakhir && $menitSekarang <= 30)) {
 } else {
@@ -23,7 +22,7 @@ if (($jamSekarang >= $pagiMulai && $jamSekarang < $pagiBerakhir) || ($jamSekaran
     exit;
 }
 
-$query = tampilData("SELECT * FROM karyawan WHERE kategori = 'Koridor 3'");
+$query = tampilData("SELECT * FROM karyawan WHERE kategori = 'Pegawai Administrasi'");
 ?>
 <?php require __DIR__ . '/../wp-layouts/header.php' ?>
 
@@ -35,30 +34,22 @@ $query = tampilData("SELECT * FROM karyawan WHERE kategori = 'Koridor 3'");
                     <div class="card-body">
                         <h5 id="waktu" class="text-center"></h5>
                         <div class="row">
+                            <div class="form-group mt-3">
+                                <label for="id_karyawan" class="form-label">Nama</label>
+                                <select name="id_karyawan" id="id_karyawan" class="form-control" required>
+                                    <option value="">-- Pilih Nama --</option>
+                                    <?php foreach ($query as $data) : ?>
+                                        <option value="<?= $data->id_karyawan ?>"><?= $data->nama ?></option>
+                                    <?php endforeach; ?>
+                                </select>
+                            </div>
                             <div class="col-xl-6">
-                                <div class="form-group mt-3">
-                                    <label for="id_karyawan" class="form-label">Nama</label>
-                                    <select name="id_karyawan" id="id_karyawan" class="form-control" required>
-                                        <option value="">-- Pilih Nama --</option>
-                                        <?php foreach ($query as $data) : ?>
-                                            <option value="<?= $data->id_karyawan ?>"><?= $data->nama ?></option>
-                                        <?php endforeach; ?>
-                                    </select>
-                                </div>
                                 <div class="form-group mt-3">
                                     <label for="foto" class="form-label">Foto</label>
                                     <input type="file" name="foto" id="foto" class="form-control" required>
                                 </div>
                             </div>
                             <div class="col-xl-6">
-                                <div class="form-group mt-3">
-                                    <label for="jabatan" class="form-label">Jabatan</label>
-                                    <select name="jabatan" id="jabatan" class="form-control" required readonly>
-                                        <?php foreach ($query as $data) : ?>
-                                            <option value="<?= $data->jabatan ?>" class="<?= $data->id_karyawan ?>"><?= $data->jabatan ?></option>
-                                        <?php endforeach; ?>
-                                    </select>
-                                </div>
                                 <div class="form-group mt-3">
                                     <label for="keterangan" class="form-label">Keterangan</label>
                                     <select name="keterangan" id="keterangan" class="form-control" required>

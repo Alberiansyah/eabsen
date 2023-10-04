@@ -6,11 +6,14 @@ use Carbon\Carbon;
 use Dompdf\Dompdf;
 
 Carbon::setLocale('id');
+$koridor = $_GET['koridor'];
 $today = Carbon::now('Asia/Jakarta')->toDateString();
 $query = tampilData("SELECT karyawan.*, absen.*
-                     FROM karyawan
-                     INNER JOIN absen ON absen.id_karyawan = karyawan.id_karyawan
-                     WHERE DATE(absen.absen_pagi) = '$today' OR DATE(absen.absen_sore) = '$today'");
+                        FROM absen
+                        INNER JOIN karyawan ON karyawan.id_karyawan = absen.id_karyawan 
+                        WHERE (DATE(absen.absen_pagi) = '$today' OR DATE(absen.absen_sore) = '$today')
+                        AND karyawan.kategori = '$koridor'
+                        ");
 $countQuery = count($query);
 $no = 1;
 $options = new \Dompdf\Options();
@@ -69,13 +72,12 @@ $html = '
                                         <th>Nama</th>
                                         <th>Pagi</th>
                                         <th>Sore</th>
-                                        <th>Jumlah Kehadiran</th>
                                     </tr>';
 
 if ($countQuery < 1) {
     $html .=
         '<tr>
-        <td colspan="5" style="text-align: center;">Belum terdapat data.</td>
+        <td colspan="4" style="text-align: center;">Belum terdapat data.</td>
     </tr>';
 }
 foreach ($query as $data) {
@@ -83,20 +85,9 @@ foreach ($query as $data) {
                 <td>' . $no++ . '</td>
                 <td>' . $data->nama . '</td>
                 <td>' . ($data->absen_pagi !== null ? Carbon::parse($data->absen_pagi)->translatedFormat('d F Y H:i:s') : '') . '</td>
-                <td>' . ($data->absen_sore !== null ? Carbon::parse($data->absen_sore)->translatedFormat('d F Y H:i:s') : '') . '</td>';
-
-    $counter = 0;
-    if ($data->absen_pagi !== null) {
-        $counter++;
-    }
-    if ($data->absen_sore !== null) {
-        $counter++;
-    }
-
-    $html .= '<td>' . $counter . '</td>
+                <td>' . ($data->absen_sore !== null ? Carbon::parse($data->absen_sore)->translatedFormat('d F Y H:i:s') : '') . '</td>
             </tr>';
 }
-
 $html .= '                      </table>
                         </div>
                     </div>

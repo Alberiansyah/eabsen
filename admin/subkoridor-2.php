@@ -1,15 +1,31 @@
 <?php
 require __DIR__ . "/../functions/functions.php";
 require __DIR__ . '/../vendor/autoload.php';
+require __DIR__ . "/../functions/session-check.php";
 
 use Carbon\Carbon;
 
 Carbon::setLocale('id');
+$koridor = "Koridor 2";
 $today = Carbon::now('Asia/Jakarta')->toDateString();
+$getYear = Carbon::parse($today)->translatedFormat('Y');
+// Mendefinisikan tanggal awal
+$tanggalAwal = Carbon::create($getYear, 1, 1);
+
+$dataBulan = [];
+
+for ($i = 0; $i < 12; $i++) {
+    // Menambahkan bulan ke dalam array
+    $dataBulan[] = $tanggalAwal->copy()->addMonths($i)->translatedFormat('F');
+}
+
 $query = tampilData("SELECT karyawan.*, absen.*
-                     FROM karyawan
-                     INNER JOIN absen ON absen.id_karyawan = karyawan.id_karyawan
-                     WHERE DATE(absen.absen_pagi) = '$today' OR DATE(absen.absen_sore) = '$today'");
+                        FROM absen
+                        INNER JOIN karyawan ON karyawan.id_karyawan = absen.id_karyawan 
+                        WHERE (DATE(absen.absen_pagi) = '$today' OR DATE(absen.absen_sore) = '$today')
+                        AND karyawan.kategori = '$koridor'
+                        ");
+$countQuery = count($query);
 $no = 1;
 ?>
 <?php require __DIR__ . '/../wp-layouts/header.php' ?>
@@ -20,11 +36,29 @@ $no = 1;
             <div class="row">
                 <div class="card">
                     <div class="card-body d-flex justify-content-between align-items-center">
-                        <h5 class="card-title mb-4">Data Koridor 1</h5>
+                        <span class="d-none" id="koridor"><?= $koridor ?></span>
+                        <h5 class="card-title mb-4">Data rekap <?= $koridor ?>, <?= Carbon::parse($today)->isoFormat('dddd'); ?> <?= Carbon::parse($today)->translatedFormat('d F Y'); ?></h5>
                         <div class="d-flex">
-                            <button class="btn btn-sm btn-primary btn-indent"><i class="fas fa-file-pdf"></i></button>
-                            <button class="btn btn-sm btn-primary btn-indent"><i class="fas fa-file-excel"></i></button>
-                            <button class="btn btn-sm btn-primary btn-indent"><i class="fa fa-print"></i></button>
+                            <a href="cetak-subkoridor?koridor=<?= $koridor ?>" target="_blank" class="screen-only" title="Rekap PDF Per-hari"><button class="btn btn-sm btn-primary btn-indent"><i class="fas fa-file-pdf"></i></button></a>
+                            <a href="excel-subkoridor?koridor=<?= $koridor ?>" target="_blank" class="screen-only" id="to-excel" title="Rekap Excel Per-hari"><button class="btn btn-sm btn-primary btn-indent"><i class="fas fa-file-excel"></i></button></a>
+                            <a href="#" id="printButton" target="_blank" class="screen-only" title="Print"><button class="btn btn-sm btn-primary btn-indent"><i class="fa fa-print"></i></button></a>
+                        </div>
+                    </div>
+                    <div class="container mb-3 screen-only">
+                        <div class="row">
+                            <div class="col-3">
+                                <div class="form-group">
+                                    <select id="listBulan" class="form-control">
+                                        <option value="">-- Pilih Bulan --</option>
+                                        <?php foreach ($dataBulan as $data) : ?>
+                                            <option value="<?= $data ?>"><?= $data ?></option>
+                                        <?php endforeach; ?>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-2">
+                                <a id="pilihBulan" disabled><button class="btn btn-xs btn-primary" disabled>Pilih</button></a>
+                            </div>
                         </div>
                     </div>
                     <div class="container mb-3">
@@ -35,8 +69,12 @@ $no = 1;
                                     <th>Nama</th>
                                     <th>Pagi</th>
                                     <th>Sore</th>
-                                    <th>Jumlah Kehadiran</th>
                                 </tr>
+                                <?php if ($countQuery < 1) : ?>
+                                    <tr>
+                                        <td colspan="4" style="text-align: center;">Belum terdapat data.</td>
+                                    </tr>
+                                <?php endif; ?>
                                 <?php foreach ($query as $data) :
                                 ?>
                                     <tr>
@@ -44,16 +82,6 @@ $no = 1;
                                         <td><?= $data->nama ?></td>
                                         <td><?= $data->absen_pagi !== null ? Carbon::parse($data->absen_pagi)->translatedFormat('j F Y H:i:s') : '' ?></td>
                                         <td><?= $data->absen_sore !== null ? Carbon::parse($data->absen_sore)->translatedFormat('j F Y H:i:s') : '' ?></td>
-                                        <?php
-                                        $counter = 0;
-                                        if ($data->absen_pagi !== null) {
-                                            $counter++;
-                                        }
-                                        if ($data->absen_sore !== null) {
-                                            $counter++;
-                                        }
-                                        ?>
-                                        <td><?= $counter ?></td>
                                     </tr>
                                 <?php endforeach; ?>
                             </table>
@@ -69,6 +97,25 @@ $no = 1;
 </div>
 
 <?php require __DIR__ . '/../wp-layouts/footer.php' ?>
+<script>
+    $(document).ready(function() {
+        $('#printButton').click(function() {
+            window.print();
+        });
+    });
+
+    let pilihBulan = $("#pilihBulan");
+    let koridor = $("#koridor").text();
+    $("#listBulan").on("change", function() {
+        if ($(this).val() === '') {
+            pilihBulan.find("button").prop("disabled", true);
+            pilihBulan.prop("target", "_blank").removeAttr("href", "href");
+        } else {
+            pilihBulan.find("button").prop("disabled", false);
+            pilihBulan.prop("target", "_blank").prop("href", "to-excel?bulan=" + $(this).val() + "&koridor=" + koridor);
+        }
+    });
+</script>
 
 </body>
 

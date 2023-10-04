@@ -6,7 +6,7 @@ require __DIR__ . "/../functions/session-check.php";
 use Carbon\Carbon;
 
 Carbon::setLocale('id');
-$koridor = "Koridor 1";
+$koridor = "Bandros";
 $today = Carbon::now('Asia/Jakarta')->toDateString();
 $getYear = Carbon::parse($today)->translatedFormat('Y');
 // Mendefinisikan tanggal awal
@@ -80,8 +80,8 @@ $no = 1;
                                     <tr>
                                         <td><?= $no++ ?></td>
                                         <td><?= $data->nama ?></td>
-                                        <td><?= $data->absen_pagi !== null ? Carbon::parse($data->absen_pagi)->translatedFormat('d F Y H:i:s') : '' ?></td>
-                                        <td><?= $data->absen_sore !== null ? Carbon::parse($data->absen_sore)->translatedFormat('d F Y H:i:s') : '' ?></td>
+                                        <td><?= $data->absen_pagi !== null ? Carbon::parse($data->absen_pagi)->translatedFormat('j F Y H:i:s') : '' ?></td>
+                                        <td><?= $data->absen_sore !== null ? Carbon::parse($data->absen_sore)->translatedFormat('j F Y H:i:s') : '' ?></td>
                                     </tr>
                                 <?php endforeach; ?>
                             </table>
@@ -90,7 +90,7 @@ $no = 1;
                 </div>
             </div>
         </div>
-        <div class="text-end m-5 screen-only">
+        <div class="text-end m-5">
             <a href="<?= $hostToRoot ?>admin/logout"><button class="btn btn-primary"><i class="fas fa-sign-out-alt"></i> Logout</button></a>
         </div>
     </div>
@@ -116,6 +116,7 @@ $no = 1;
         }
     });
 </script>
+
 </body>
 
 </html>

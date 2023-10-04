@@ -76,7 +76,7 @@ $query = tampilData("SELECT * FROM karyawan WHERE kategori = 'Koridor 5'");
                             <div class="form-group mt-3">
                                 <input type="hidden" name="alamat" id="alamat" class="form-control">
                                 <label for="preview" class="form-label">Lokasi</label>
-                                <textarea name="preview" id="preview" class="form-control" disabled></textarea>
+                                <textarea name="preview" id="preview" class="form-control" placeholder="Ambil foto untuk mengambil lokasi" disabled></textarea>
                             </div>
                             <div class="form-group mt-3 text-center">
                                 <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> Simpan</button>
@@ -161,7 +161,9 @@ $query = tampilData("SELECT * FROM karyawan WHERE kategori = 'Koridor 5'");
         });
     }
 
-    getCurrentLocation();
+    $("#foto").on("change", function() {
+        getCurrentLocation();
+    });
 
     // Bebas pilih aja
 

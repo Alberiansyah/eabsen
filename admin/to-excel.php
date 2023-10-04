@@ -3,6 +3,7 @@ require __DIR__ . "/../functions/functions.php";
 require __DIR__ . '/../vendor/autoload.php';
 
 $ambilBulan = isset($_GET['bulan']) ? $_GET['bulan'] : '';
+$koridor = isset($_GET['koridor']) ? $_GET['koridor'] : '';
 
 use Carbon\Carbon;
 
@@ -26,8 +27,15 @@ for ($i = 0; $i < 12; $i++) {
     $dataBulan[] = $tanggalAwal->copy()->addMonths($i)->translatedFormat('F');
 }
 
+$dataKoridor = ["Koridor 1", "Koridor 2", "Koridor 3", "Koridor 4", "Koridor 5", "Bandros"];
 $bulanValid = in_array($ambilBulan, $dataBulan);
+$koridorValid = in_array($koridor, $dataKoridor);
 if (!$bulanValid) {
+    header($_SERVER["SERVER_PROTOCOL"] . " 404 Not Found", true, 404);
+    require __DIR__ . "/../wp-layouts/404-page.php";
+    exit;
+}
+if (!$koridorValid) {
     header($_SERVER["SERVER_PROTOCOL"] . " 404 Not Found", true, 404);
     require __DIR__ . "/../wp-layouts/404-page.php";
     exit;
@@ -55,8 +63,15 @@ $noTabel = 1;
 $query = tampilData("SELECT karyawan.*, absen.*
                         FROM karyawan
                         INNER JOIN absen ON absen.id_karyawan = karyawan.id_karyawan
-                        AND karyawan.kategori = 'Koridor 1'
+                        AND karyawan.kategori = '$koridor'
                      ");
+
+if (!$query) {
+    header($_SERVER["SERVER_PROTOCOL"] . " 404 Not Found", true, 404);
+    require __DIR__ . "/data-kosong.php";
+    exit;
+}
+
 $dataPerRow = [];
 
 foreach ($query as $data) {
