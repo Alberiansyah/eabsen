@@ -9,6 +9,14 @@ use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
 Carbon::setLocale('id');
 $koridor = $_GET['koridor'];
+
+$dataKoridor = ["Koridor 1", "Koridor 2", "Koridor 3", "Koridor 4", "Koridor 5", "Bandros"];
+$koridorValid = in_array($koridor, $dataKoridor);
+if (!$koridorValid) {
+    header($_SERVER["SERVER_PROTOCOL"] . " 404 Not Found", true, 404);
+    require __DIR__ . "/../wp-layouts/404-page.php";
+    exit;
+}
 $today = Carbon::now('Asia/Jakarta')->toDateString();
 $getDay = Carbon::parse($today)->isoFormat('dddd');
 $query = tampilData("SELECT karyawan.*, absen.*
@@ -30,7 +38,6 @@ $worksheet->setCellValue('A1', 'No');
 $worksheet->setCellValue('B1', 'Nama');
 $worksheet->setCellValue('C1', 'Pagi');
 $worksheet->setCellValue('D1', 'Sore');
-$worksheet->setCellValue('E1', 'Jumlah Kehadiran');
 
 // Isi data dari tabel
 $data = 2; // Mulai dari baris kedua
@@ -45,18 +52,8 @@ foreach ($query as $row) {
     $worksheet->setCellValue('C' . $data, $row->absen_pagi !== null ? Carbon::parse($row->absen_pagi)->translatedFormat('d F Y H:i:s') : '');
     $worksheet->setCellValue('D' . $data, $row->absen_sore !== null ? Carbon::parse($row->absen_sore)->translatedFormat('d F Y H:i:s') : '');
 
-    // Hitung jumlah kehadiran
-    if ($row->absen_pagi !== null) {
-        $counter++;
-    }
-    if ($row->absen_sore !== null) {
-        $counter++;
-    }
-
-    $worksheet->setCellValue('E' . $data, $counter);
-
     // Set batas (border) untuk sel-sel dalam kolom A sampai E
-    for ($col = 'A'; $col <= 'E'; $col++) {
+    for ($col = 'A'; $col <= 'D'; $col++) {
         $worksheet->getStyle($col . $data)->getBorders()->getAllBorders()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
 
         // Otomatis melebarkan lebar sel
@@ -67,8 +64,8 @@ foreach ($query as $row) {
 }
 
 // Set warna latar belakang untuk baris kepala (thead)
-$worksheet->getStyle('A1:E1')->getFill()->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID);
-$worksheet->getStyle('A1:E1')->getFill()->getStartColor()->setARGB('FFC0C0C0'); // Ganti dengan kode warna yang Anda inginkan
+$worksheet->getStyle('A1:D1')->getFill()->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID);
+$worksheet->getStyle('A1:D1')->getFill()->getStartColor()->setARGB('FFC0C0C0'); // Ganti dengan kode warna yang Anda inginkan
 
 // Set ulang data ke 2 untuk baris pertama dalam tbody
 $data = 2;
