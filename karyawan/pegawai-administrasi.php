@@ -14,7 +14,7 @@ $pagiBerakhir = 12;
 
 // Waktu absensi sore: 16:30 - 18:00
 $soreMulai = 16;
-$soreBerakhir = 24;
+$soreBerakhir = 18;
 
 if (($jamSekarang >= $pagiMulai && $jamSekarang < $pagiBerakhir) || ($jamSekarang == $pagiBerakhir && $menitSekarang <= 30) || ($jamSekarang >= $soreMulai && $jamSekarang < $soreBerakhir) || ($jamSekarang == $soreBerakhir && $menitSekarang <= 30)) {
 } else {

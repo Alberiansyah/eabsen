@@ -1,5 +1,7 @@
 <?php
 require __DIR__ . "/../connections/connections.php";
+// var_dump($_SESSION);
+// exit;
 date_default_timezone_set('Asia/Jakarta');
 $waktuSekarang = date('H:i');
 $jamSekarang = (int)explode(':', $waktuSekarang)[0];
@@ -33,7 +35,7 @@ $soreBerakhir = 24;
                                     <button type="button" id="showPassword" class="btn btn-secondary"><i class="fa fa-eye" id="show"></i></button>
                                 </div>
                                 <?php if (isset($_SESSION['gagal']) && $_SESSION['gagal']['status'] === false) : ?>
-                                    <div class="invalid-feedback">
+                                    <div class="invalid-feedback d-block">
                                         <?php echo $_SESSION['gagal']['message']; ?>
                                     </div>
                                     <?php unset($_SESSION['gagal']); ?>
