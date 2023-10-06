@@ -15,6 +15,21 @@ use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 // Mengatur lokasi ke Bahasa Indonesia
 Carbon::setLocale('id');
 
+$bulanMap = [
+    'Januari' => 'January',
+    'Februari' => 'February',
+    'Maret' => 'March',
+    'April' => 'April',
+    'Mei' => 'May',
+    'Juni' => 'June',
+    'Juli' => 'July',
+    'Agustus' => 'August',
+    'September' => 'September',
+    'Oktober' => 'October',
+    'November' => 'November',
+    'Desember' => 'December'
+];
+
 $today = Carbon::now('Asia/Jakarta')->toDateString();
 $getYear = Carbon::parse($today)->translatedFormat('Y');
 // Mendefinisikan tanggal awal
@@ -227,18 +242,27 @@ foreach ($dataPerRow as $row) {
     $columnOut = 'D'; // Set ulang nilai awal kolom setiap kali iterasi baris karyawan
 
     foreach ($dataPerBulan[$ambilBulan] as $tgl) {
+        $tglSekarang = strtr($tgl, $bulanMap);
+        $tanggalAwal = Carbon::createFromFormat('d F Y', $tglSekarang);
+        $namaHari = $tanggalAwal->isoFormat('dddd');
+        // var_dump(print_r($namaHari));
+        // exit;
         $tempcolumnOut = $columnOut;
         if (isset($row['izin'][$tgl])) {
             $worksheet->setCellValue($columnOut . $rowOut, 'Izin');
             $style = $worksheet->getStyle($columnOut . $rowOut);
             $font = $style->getFont();
-            $font->getColor()->setRGB('0000FF'); // Warna biru
+            $font->getColor()->setRGB('FFFFFF');
+            $fill = $style->getFill();
+            $fill->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)->getStartColor()->setRGB('0000FF');
             $columnOut++;
         } elseif (isset($row['sakit'][$tgl])) {
             $worksheet->setCellValue($columnOut . $rowOut, 'Sakit');
             $style = $worksheet->getStyle($columnOut . $rowOut);
             $font = $style->getFont();
-            $font->getColor()->setRGB('FFA500'); // Warna merah
+            $font->getColor()->setRGB('000000');
+            $fill = $style->getFill();
+            $fill->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)->getStartColor()->setRGB('FFA500');
             $columnOut++;
         } elseif (isset($row['absen_pagi'][$tgl])) {
             $worksheet->setCellValue($columnOut . $rowOut, $row['absen_pagi'][$tgl]);
@@ -248,17 +272,27 @@ foreach ($dataPerRow as $row) {
             $columnOut++;
         }
 
+        // Cek jika nama hari adalah "Sabtu" atau "Minggu" dan atur warna latar belakang sel menjadi merah
+        if ($namaHari === 'Sabtu' || $namaHari === 'Minggu') {
+            $cell = $worksheet->getCell($columnOut . $rowOut);
+            $style = $cell->getStyle();
+            $fill = $style->getFill();
+            $fill->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)->getStartColor()->setRGB('FF0000');
+        }
+
         if (isset($row['izin'][$tgl])) {
             $worksheet->setCellValue($columnOut . $rowOut, 'Izin');
             $style = $worksheet->getStyle($columnOut . $rowOut);
-            $font = $style->getFont();
-            $font->getColor()->setRGB('0000FF'); // Warna biru
+            $font->getColor()->setRGB('FFFFFF');
+            $fill = $style->getFill();
+            $fill->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)->getStartColor()->setRGB('0000FF');
             $columnOut++;
         } elseif (isset($row['sakit'][$tgl])) {
             $worksheet->setCellValue($columnOut . $rowOut, 'Sakit');
             $style = $worksheet->getStyle($columnOut . $rowOut);
-            $font = $style->getFont();
-            $font->getColor()->setRGB('FFA500'); // Warna merah
+            $font->getColor()->setRGB('000000');
+            $fill = $style->getFill();
+            $fill->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)->getStartColor()->setRGB('FFA500');
             $columnOut++;
         } elseif (isset($row['absen_sore'][$tgl])) {
             $worksheet->setCellValue($columnOut . $rowOut, $row['absen_sore'][$tgl]);
@@ -266,6 +300,14 @@ foreach ($dataPerRow as $row) {
         } else {
             $worksheet->setCellValue($columnOut . $rowOut, '');
             $columnOut++;
+        }
+
+        // Cek jika nama hari adalah "Sabtu" atau "Minggu" dan atur warna latar belakang sel menjadi merah
+        if ($namaHari === 'Sabtu' || $namaHari === 'Minggu') {
+            $cell = $worksheet->getCell($tempcolumnOut . $rowOut);
+            $style = $cell->getStyle();
+            $fill = $style->getFill();
+            $fill->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)->getStartColor()->setRGB('FF0000');
         }
     }
     // Pindah ke baris berikutnya

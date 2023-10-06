@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 06, 2023 at 08:55 PM
+-- Generation Time: Oct 06, 2023 at 11:01 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -47,10 +47,10 @@ CREATE TABLE `absen` (
 INSERT INTO `absen` (`id_absen`, `id_karyawan`, `foto`, `keterangan`, `alamat`, `alasan`, `absen_pagi`, `absen_sore`, `created_at`, `update_at`) VALUES
 (1, 1, 'dd48fa854c8d66269963b6e6c14796608b511ea05776e48e35d2d25c4dd7eb55_2023_10_02_1.png', 'Hadir', 'Gang Gagok Handoko, Situ Saeur, Bojongloa Kidul, Bandung, West Java, Java, 40232, Indonesia', '```Aku ada', '2023-10-02 09:24:03', '2023-10-02 18:55:00', '2023-10-01 18:24:03', '2023-10-01 18:24:03'),
 (2, 1, 'dd48fa854c8d66269963b6e6c14796608b511ea05776e48e35d2d25c4dd7eb55_2023_10_02_1.png', 'Hadir', 'Gang Gagok Handoko, Situ Saeur, Bojongloa Kidul, Bandung, West Java, Java, 40232, Indonesia', '```Aku ada', '2023-10-03 08:24:03', '2023-10-03 17:55:00', '2023-10-01 18:24:03', '2023-10-01 18:24:03'),
-(3, 1, 'dd48fa854c8d66269963b6e6c14796608b511ea05776e48e35d2d25c4dd7eb55_2023_10_02_1.png', 'Hadir', 'Gang Gagok Handoko, Situ Saeur, Bojongloa Kidul, Bandung, West Java, Java, 40232, Indonesia', '```Aku ada', '2023-10-10 08:00:03', '2023-10-10 20:55:00', '2023-10-01 18:24:03', '2023-10-01 18:24:03'),
+(3, 1, 'dd48fa854c8d66269963b6e6c14796608b511ea05776e48e35d2d25c4dd7eb55_2023_10_02_1.png', 'Izin', 'Gang Gagok Handoko, Situ Saeur, Bojongloa Kidul, Bandung, West Java, Java, 40232, Indonesia', '```Aku ada', '2023-10-10 08:00:03', '2023-10-10 20:55:00', '2023-10-01 18:24:03', '2023-10-01 18:24:03'),
 (4, 2, 'dd48fa854c8d66269963b6e6c14796608b511ea05776e48e35d2d25c4dd7eb55_2023_10_02_1.png', 'Hadir', 'Gang Gagok Handoko, Situ Saeur, Bojongloa Kidul, Bandung, West Java, Java, 40232, Indonesia', '```Aku ada', '2023-10-06 08:39:02', '2023-10-06 17:39:06', '2023-10-01 18:24:03', '2023-10-01 18:24:03'),
 (5, 2, 'dd48fa854c8d66269963b6e6c14796608b511ea05776e48e35d2d25c4dd7eb55_2023_10_02_1.png', 'Hadir', 'Gang Gagok Handoko, Situ Saeur, Bojongloa Kidul, Bandung, West Java, Java, 40232, Indonesia', '```Aku ada', '2023-10-05 08:24:03', '2023-10-05 17:55:00', '2023-10-01 18:24:03', '2023-10-01 18:24:03'),
-(6, 10, 'dd48fa854c8d66269963b6e6c14796608b511ea05776e48e35d2d25c4dd7eb55_2023_10_02_1.png', 'Hadir', 'Gang Gagok Handoko, Situ Saeur, Bojongloa Kidul, Bandung, West Java, Java, 40232, Indonesia', '```Aku ada', '2023-10-04 08:24:03', '2023-10-04 17:55:00', '2023-10-01 18:24:03', '2023-10-01 18:24:03');
+(6, 10, 'dd48fa854c8d66269963b6e6c14796608b511ea05776e48e35d2d25c4dd7eb55_2023_10_02_1.png', 'Sakit', 'Gang Gagok Handoko, Situ Saeur, Bojongloa Kidul, Bandung, West Java, Java, 40232, Indonesia', '```Aku ada', '2023-10-04 08:24:03', '2023-10-04 17:55:00', '2023-10-01 18:24:03', '2023-10-01 18:24:03');
 
 -- --------------------------------------------------------
 
