@@ -25,7 +25,7 @@ $query = tampilData("SELECT * FROM karyawan");
                     <h2>Halo, <?= $_SESSION['nama'] ?> selamat datang kembali.</h2>
                 </div>
                 <div class="text-center position-absolute bottom-0 start-50 translate-middle-x mb-5">
-                    <a href="rekap-data"><button class="btn btn-primary m-3 mx-5"><i class="fas fa-table"></i> Rekap Data</button></a>
+                    <a href="rekap-data"><button class="btn btn-lg btn-primary m-3 mx-5"><i class="fas fa-table"></i> Rekap Data</button></a>
                 </div>
             </div>
         </div>

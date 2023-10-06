@@ -23,7 +23,7 @@ $html = '
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Data Koridor 1</title>
+    <title>Data ' . $koridor . '</title>
     <style>
     table {
         width: 100%;
@@ -62,7 +62,7 @@ $html = '
                 <div class="row">
                     <div class="card">
                         <div class="card-body d-flex justify-content-between align-items-center">
-                            <h3 class="card-title mb-4">Data Koridor 1</h3>
+                            <h3 class="card-title mb-4">Data ' . $koridor . '</h3>
                         </div>
                         <div class="container mb-3">
                             <div class="table-responsive">

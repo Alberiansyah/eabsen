@@ -27,7 +27,7 @@ for ($i = 0; $i < 12; $i++) {
     $dataBulan[] = $tanggalAwal->copy()->addMonths($i)->translatedFormat('F');
 }
 
-$dataKoridor = ["Koridor 1", "Koridor 2", "Koridor 3", "Koridor 4", "Koridor 5", "Bandros"];
+$dataKoridor = ["Koridor 1", "Koridor 2", "Koridor 3", "Koridor 4", "Koridor 5", "Bandros", 'Pegawai Administrasi'];
 $bulanValid = in_array($ambilBulan, $dataBulan);
 $koridorValid = in_array($koridor, $dataKoridor);
 if (!$bulanValid) {
@@ -84,18 +84,30 @@ foreach ($query as $data) {
         $dataPerRow[$key] = [
             'no' => $no++,
             'nama' => $data->nama,
-            'absen_pagi' => Carbon::parse($data->absen_pagi)->translatedFormat('H:i'),
-            'absen_sore' => Carbon::parse($data->absen_sore)->translatedFormat('H:i'),
+            'absen_pagi' => [],
+            'absen_sore' => [],
+            'izin' => [],
+            'sakit' => [],
         ];
     }
 
     // Menambahkan tanggal absen pada array data per baris
     $tanggalAbsenPagi = Carbon::parse($data->absen_pagi)->translatedFormat('d F Y');
     $tanggalAbsenSore = Carbon::parse($data->absen_sore)->translatedFormat('d F Y');
-
-    // Menambahkan tanggal absen ke dalam array data per baris
-    $dataPerRow[$key][$tanggalAbsenPagi] = $tanggalAbsenPagi;
-    $dataPerRow[$key][$tanggalAbsenSore] = $tanggalAbsenSore;
+    // Mengecek keterangan absen
+    if ($data->keterangan === 'Izin') {
+        // Jika keterangan adalah Izin, tambahkan tanggal ke dalam array izin
+        $dataPerRow[$key]['izin'][$tanggalAbsenPagi] = $tanggalAbsenPagi;
+        $dataPerRow[$key]['izin'][$tanggalAbsenSore] = $tanggalAbsenSore;
+    } elseif ($data->keterangan === 'Sakit') {
+        // Jika keterangan adalah Sakit, tambahkan tanggal ke dalam array sakit
+        $dataPerRow[$key]['sakit'][$tanggalAbsenPagi] = $tanggalAbsenPagi;
+        $dataPerRow[$key]['sakit'][$tanggalAbsenSore] = $tanggalAbsenSore;
+    } else {
+        // Jika keterangan bukan Izin atau Sakit, tambahkan tanggal ke dalam array tanggal_absen
+        $dataPerRow[$key]['absen_pagi'][$tanggalAbsenPagi] = Carbon::parse($data->absen_pagi)->translatedFormat('H:i');
+        $dataPerRow[$key]['absen_sore'][$tanggalAbsenPagi] = Carbon::parse($data->absen_sore)->translatedFormat('H:i');
+    }
 }
 // Buat objek spreadsheet
 $spreadsheet = new Spreadsheet();
@@ -188,6 +200,7 @@ foreach ($dataPerBulan as $bulan => $tanggal) {
     if ($bulan === $ambilBulan) {
         foreach ($tanggal as $tgl) {
             $worksheet->setCellValue($columnIn . $rowIn, 'IN');
+            $spreadsheet->getActiveSheet()->getStyle($columnIn)->getAlignment()->setHorizontal(Alignment::HORIZONTAL_CENTER)->setVertical(Alignment::VERTICAL_CENTER);
             ++$columnIn;
             $columnIn++;
         }
@@ -201,12 +214,12 @@ foreach ($dataPerBulan as $bulan => $tanggal) {
     if ($bulan === $ambilBulan) {
         foreach ($tanggal as $tgl) {
             $worksheet->setCellValue($columnOut . $rowOut, 'OUT');
+            $spreadsheet->getActiveSheet()->getStyle($columnOut)->getAlignment()->setHorizontal(Alignment::HORIZONTAL_CENTER)->setVertical(Alignment::VERTICAL_CENTER);
             ++$columnOut;
             $columnOut++;
         }
     }
 }
-
 $columnOut = 'D'; // Indeks kolom D
 $rowOut = 7; // Indeks baris mulai dari 7
 
@@ -215,25 +228,50 @@ foreach ($dataPerRow as $row) {
 
     foreach ($dataPerBulan[$ambilBulan] as $tgl) {
         $tempcolumnOut = $columnOut;
-        if (isset($row[$tgl])) {
-            $worksheet->setCellValue($columnOut . $rowOut, $row['absen_pagi']);
+        if (isset($row['izin'][$tgl])) {
+            $worksheet->setCellValue($columnOut . $rowOut, 'Izin');
+            $style = $worksheet->getStyle($columnOut . $rowOut);
+            $font = $style->getFont();
+            $font->getColor()->setRGB('0000FF'); // Warna biru
+            $columnOut++;
+        } elseif (isset($row['sakit'][$tgl])) {
+            $worksheet->setCellValue($columnOut . $rowOut, 'Sakit');
+            $style = $worksheet->getStyle($columnOut . $rowOut);
+            $font = $style->getFont();
+            $font->getColor()->setRGB('FFA500'); // Warna merah
+            $columnOut++;
+        } elseif (isset($row['absen_pagi'][$tgl])) {
+            $worksheet->setCellValue($columnOut . $rowOut, $row['absen_pagi'][$tgl]);
             $columnOut++;
         } else {
             $worksheet->setCellValue($columnOut . $rowOut, '');
             $columnOut++;
         }
-        if (isset($row[$tgl])) {
-            $worksheet->setCellValue($columnOut . $rowOut, $row['absen_sore']);
+
+        if (isset($row['izin'][$tgl])) {
+            $worksheet->setCellValue($columnOut . $rowOut, 'Izin');
+            $style = $worksheet->getStyle($columnOut . $rowOut);
+            $font = $style->getFont();
+            $font->getColor()->setRGB('0000FF'); // Warna biru
+            $columnOut++;
+        } elseif (isset($row['sakit'][$tgl])) {
+            $worksheet->setCellValue($columnOut . $rowOut, 'Sakit');
+            $style = $worksheet->getStyle($columnOut . $rowOut);
+            $font = $style->getFont();
+            $font->getColor()->setRGB('FFA500'); // Warna merah
+            $columnOut++;
+        } elseif (isset($row['absen_sore'][$tgl])) {
+            $worksheet->setCellValue($columnOut . $rowOut, $row['absen_sore'][$tgl]);
             $columnOut++;
         } else {
             $worksheet->setCellValue($columnOut . $rowOut, '');
             $columnOut++;
         }
     }
-
     // Pindah ke baris berikutnya
     $rowOut++;
 }
+
 
 // Menentukan baris awal untuk data
 $worksheet->getStyle('B3:' . ++$tempcolumnOut . ($rowOut - 1))->getBorders()->getAllBorders()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);

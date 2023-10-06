@@ -15,7 +15,7 @@ $pagiBerakhir = 9;
 
 // Waktu absensi sore: 16:30 - 18:00
 $soreMulai = 16;
-$soreBerakhir = 18;
+$soreBerakhir = 24;
 
 if (($jamSekarang >= $pagiMulai && $jamSekarang < $pagiBerakhir) || ($jamSekarang == $pagiBerakhir && $menitSekarang <= 30) || ($jamSekarang >= $soreMulai && $jamSekarang < $soreBerakhir) || ($jamSekarang == $soreBerakhir && $menitSekarang <= 30)) {
 } else {
@@ -23,7 +23,7 @@ if (($jamSekarang >= $pagiMulai && $jamSekarang < $pagiBerakhir) || ($jamSekaran
     exit;
 }
 
-$query = tampilData("SELECT * FROM karyawan WHERE kategori = 'Koridor 1'");
+$query = tampilData("SELECT * FROM karyawan WHERE kategori = 'Koridor 6'");
 ?>
 <?php require __DIR__ . '/../wp-layouts/header.php' ?>
 

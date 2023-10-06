@@ -10,7 +10,7 @@ use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 Carbon::setLocale('id');
 $koridor = $_GET['koridor'];
 
-$dataKoridor = ["Koridor 1", "Koridor 2", "Koridor 3", "Koridor 4", "Koridor 5", "Bandros"];
+$dataKoridor = ["Koridor 1", "Koridor 2", "Koridor 3", "Koridor 4", "Koridor 5", "Bandros", 'Pegawai Administrasi'];
 $koridorValid = in_array($koridor, $dataKoridor);
 if (!$koridorValid) {
     header($_SERVER["SERVER_PROTOCOL"] . " 404 Not Found", true, 404);

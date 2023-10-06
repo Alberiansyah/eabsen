@@ -11,7 +11,7 @@ $pagiBerakhir = 9;
 
 // Waktu absensi sore: 16:30 - 18:00
 $soreMulai = 16;
-$soreBerakhir = 18;
+$soreBerakhir = 24;
 
 ?>
 <?php require __DIR__ . '/wp-layouts/header.php' ?>
@@ -21,11 +21,11 @@ $soreBerakhir = 18;
     </div>
     <div class="d-flex justify-content-center">
         <?php if (($jamSekarang >= $pagiMulai && $jamSekarang < $pagiBerakhir) || ($jamSekarang == $pagiBerakhir && $menitSekarang <= 30) || ($jamSekarang >= $soreMulai && $jamSekarang < $soreBerakhir) || ($jamSekarang == $soreBerakhir && $menitSekarang <= 30)) : ?>
-            <a href="karyawan/koridor"><button class="btn btn-primary m-3 mx-5"><i class="fas fa-users"></i> Karyawan</button></a>
-            <a href="admin/index"><button class="btn btn-primary m-3 mx-5"><i class="fa fa-user"></i> Admin</button></a>
+            <a href="karyawan/koridor"><button class="btn btn-lg btn-primary m-3 mx-5"><i class="fas fa-users"></i> Karyawan</button></a>
+            <a href="admin/index"><button class="btn btn-lg btn-primary m-3 mx-5"><i class="fa fa-user"></i> Admin</button></a>
         <?php else : ?>
-            <a href="cek-waktu"><button class="btn btn-primary m-3 mx-5"><i class="fas fa-users"></i> Karyawan</button></a>
-            <a href="admin/index"><button class="btn btn-primary m-3 mx-5"><i class="fa fa-user"></i> Admin</button></a>
+            <a href="cek-waktu"><button class="btn btn-lg btn-primary m-3 mx-5"><i class="fas fa-users"></i> Karyawan</button></a>
+            <a href="admin/index"><button class="btn btn-lg btn-primary m-3 mx-5"><i class="fa fa-user"></i> Admin</button></a>
         <?php endif; ?>
     </div>
 </div>

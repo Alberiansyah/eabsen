@@ -16,7 +16,7 @@ $pagiBerakhir = 9;
 
 // Waktu absensi sore: 16:30 - 18:00
 $soreMulai = 16;
-$soreBerakhir = 18;
+$soreBerakhir = 24;
 
 if (($jamSekarang >= $pagiMulai && $jamSekarang < $pagiBerakhir) || ($jamSekarang == $pagiBerakhir && $menitSekarang <= 30) || ($jamSekarang >= $soreMulai && $jamSekarang < $soreBerakhir) || ($jamSekarang == $soreBerakhir && $menitSekarang <= 30)) {
 } else {
@@ -67,6 +67,20 @@ if (($jamSekarang >= $pagiMulai && $jamSekarang < $pagiBerakhir) || ($jamSekaran
                         <a href="subkoridor-5">
                             <div class="accordion-body rounded-0 text-center">
                                 Koridor 5 (ST Hall Antapani)
+                            </div>
+                        </a>
+                    </div>
+                    <div id="flush-collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+                        <a href="bandros">
+                            <div class="accordion-body rounded-0 text-center">
+                                Bandros
+                            </div>
+                        </a>
+                    </div>
+                    <div id="flush-collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+                        <a href="pegawai-administrasi">
+                            <div class="accordion-body rounded-0 text-center">
+                                Pegawai Administrasi
                             </div>
                         </a>
                     </div>
