@@ -13,6 +13,6 @@ try {
 
 $hostToRoot = 'http://localhost/eabsen/';
 $title = 'ABSENSI BLUD UPT ANGKUTAN KOTA BANDUNG';
-$version = 'Beta Build 1.0 (Bug are expected)';
+$version = 'git ad1.0 ';
 
 session_start();
