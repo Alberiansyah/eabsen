@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 03, 2023 at 09:56 PM
+-- Generation Time: Oct 06, 2023 at 08:55 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -45,10 +45,10 @@ CREATE TABLE `absen` (
 --
 
 INSERT INTO `absen` (`id_absen`, `id_karyawan`, `foto`, `keterangan`, `alamat`, `alasan`, `absen_pagi`, `absen_sore`, `created_at`, `update_at`) VALUES
-(1, 1, 'dd48fa854c8d66269963b6e6c14796608b511ea05776e48e35d2d25c4dd7eb55_2023_10_02_1.png', 'Hadir', 'Gang Gagok Handoko, Situ Saeur, Bojongloa Kidul, Bandung, West Java, Java, 40232, Indonesia', '```Aku ada', '2023-10-02 08:24:03', '2023-10-02 17:55:00', '2023-10-01 18:24:03', '2023-10-01 18:24:03'),
+(1, 1, 'dd48fa854c8d66269963b6e6c14796608b511ea05776e48e35d2d25c4dd7eb55_2023_10_02_1.png', 'Hadir', 'Gang Gagok Handoko, Situ Saeur, Bojongloa Kidul, Bandung, West Java, Java, 40232, Indonesia', '```Aku ada', '2023-10-02 09:24:03', '2023-10-02 18:55:00', '2023-10-01 18:24:03', '2023-10-01 18:24:03'),
 (2, 1, 'dd48fa854c8d66269963b6e6c14796608b511ea05776e48e35d2d25c4dd7eb55_2023_10_02_1.png', 'Hadir', 'Gang Gagok Handoko, Situ Saeur, Bojongloa Kidul, Bandung, West Java, Java, 40232, Indonesia', '```Aku ada', '2023-10-03 08:24:03', '2023-10-03 17:55:00', '2023-10-01 18:24:03', '2023-10-01 18:24:03'),
-(3, 1, 'dd48fa854c8d66269963b6e6c14796608b511ea05776e48e35d2d25c4dd7eb55_2023_10_02_1.png', 'Hadir', 'Gang Gagok Handoko, Situ Saeur, Bojongloa Kidul, Bandung, West Java, Java, 40232, Indonesia', '```Aku ada', '2023-10-10 08:24:03', '2023-10-10 17:55:00', '2023-10-01 18:24:03', '2023-10-01 18:24:03'),
-(4, 2, 'dd48fa854c8d66269963b6e6c14796608b511ea05776e48e35d2d25c4dd7eb55_2023_10_02_1.png', 'Hadir', 'Gang Gagok Handoko, Situ Saeur, Bojongloa Kidul, Bandung, West Java, Java, 40232, Indonesia', '```Aku ada', '2023-10-06 08:24:03', '2023-10-06 17:55:00', '2023-10-01 18:24:03', '2023-10-01 18:24:03'),
+(3, 1, 'dd48fa854c8d66269963b6e6c14796608b511ea05776e48e35d2d25c4dd7eb55_2023_10_02_1.png', 'Hadir', 'Gang Gagok Handoko, Situ Saeur, Bojongloa Kidul, Bandung, West Java, Java, 40232, Indonesia', '```Aku ada', '2023-10-10 08:00:03', '2023-10-10 20:55:00', '2023-10-01 18:24:03', '2023-10-01 18:24:03'),
+(4, 2, 'dd48fa854c8d66269963b6e6c14796608b511ea05776e48e35d2d25c4dd7eb55_2023_10_02_1.png', 'Hadir', 'Gang Gagok Handoko, Situ Saeur, Bojongloa Kidul, Bandung, West Java, Java, 40232, Indonesia', '```Aku ada', '2023-10-06 08:39:02', '2023-10-06 17:39:06', '2023-10-01 18:24:03', '2023-10-01 18:24:03'),
 (5, 2, 'dd48fa854c8d66269963b6e6c14796608b511ea05776e48e35d2d25c4dd7eb55_2023_10_02_1.png', 'Hadir', 'Gang Gagok Handoko, Situ Saeur, Bojongloa Kidul, Bandung, West Java, Java, 40232, Indonesia', '```Aku ada', '2023-10-05 08:24:03', '2023-10-05 17:55:00', '2023-10-01 18:24:03', '2023-10-01 18:24:03'),
 (6, 10, 'dd48fa854c8d66269963b6e6c14796608b511ea05776e48e35d2d25c4dd7eb55_2023_10_02_1.png', 'Hadir', 'Gang Gagok Handoko, Situ Saeur, Bojongloa Kidul, Bandung, West Java, Java, 40232, Indonesia', '```Aku ada', '2023-10-04 08:24:03', '2023-10-04 17:55:00', '2023-10-01 18:24:03', '2023-10-01 18:24:03');
 
@@ -222,7 +222,29 @@ INSERT INTO `karyawan` (`id_karyawan`, `nama`, `jabatan`, `kategori`) VALUES
 (153, 'Uus Kusnadi\r\n', 'Sopir', 'Koridor 6'),
 (154, 'Deni S\r\n', 'Kondektur', 'Koridor 6'),
 (155, 'Mahrom Azri\r\n', 'Kondektur', 'Koridor 6'),
-(156, 'Sopian\r\n', 'Kondektur', 'Koridor 6');
+(156, 'Sopian\r\n', 'Kondektur', 'Koridor 6'),
+(157, 'Agnia Fauzia', 'Karyawan', 'Pegawai Administrasi'),
+(158, 'Andika Dwi Naviandi', 'Karyawan', 'Pegawai Administasi'),
+(159, 'Annisa Aulyaa Fidiini', 'Karyawan', 'Pegawai Administrasi'),
+(160, 'Bagus Sugi Arif Pratama', 'Karyawan', 'Pegawai Administrasi'),
+(161, 'Bayu Anugrah Respati', 'Karyawan', 'Pegawai Administrasi'),
+(162, 'Deri Farjiansyah', 'Karyawan', 'Pegawai Administrasi'),
+(163, 'Irvan Adiatama Sudrajat', 'Karyawan', 'Pegawai Administrasi'),
+(164, 'Noviani Ramadhan', 'Karyawan', 'Pegawai Administrasi'),
+(165, 'Retno Nilam Sari', 'Karyawan', 'Pegawai Administrasi'),
+(166, 'Rizky Arfan Pratama', 'Karyawan', 'Pegawai Administrasi'),
+(167, 'Salsa Permata', 'Karyawan', 'Pegawai Administrasi'),
+(168, 'Syarah Noor Rima Sapoetro', 'Karyawan', 'Pegawai Administrasi'),
+(169, 'Tamia Pratalia', 'Karyawan', 'Pegawai Administrasi'),
+(170, 'Vitra Trie Setiana', 'Karyawan', 'Pegawai Administrasi'),
+(171, 'Wendi Surya Kurnia', 'Karyawan', 'Pegawai Administrasi'),
+(172, 'Dean Farhan Ramadhan', 'Karyawan', 'Pegawai Administrasi'),
+(173, 'Geny Purnamasari', 'Karyawan', 'Pegawai Administrasi'),
+(174, 'Muhamad rizki Maulana', 'Karyawan', 'Pegawai Administrasi'),
+(175, 'Rini Agustina', 'Karyawan', 'Pegawai Administrasi'),
+(176, 'Tri Sakti Handayani', 'Karyawan', 'Pegawai Administrasi'),
+(177, 'Wulan Intan Fadilah', 'Karyawan', 'Pegawai Administrasi'),
+(178, 'Denis Suprana', 'Karyawan', 'Pegawai Administrasi');
 
 -- --------------------------------------------------------
 
@@ -242,7 +264,8 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`idUser`, `username`, `password`, `nama`) VALUES
-(1, 'admin', '$2y$10$yDTrXfFVdhZos3ETxc1L6.hvZUDnwknujCvwGWAwHrfxAxJxX8VRu', 'Yanto Hermawan');
+(1, 'admin', '$2y$10$yDTrXfFVdhZos3ETxc1L6.hvZUDnwknujCvwGWAwHrfxAxJxX8VRu', 'Yanto Hermawan'),
+(2, 'gilang', 'gilang', 'Gilang');
 
 --
 -- Indexes for dumped tables
