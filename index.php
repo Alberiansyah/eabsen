@@ -11,7 +11,7 @@ $pagiBerakhir = 9;
 
 // Waktu absensi sore: 16:30 - 18:00
 $soreMulai = 16;
-$soreBerakhir = 24;
+$soreBerakhir = 18;
 
 ?>
 <?php require __DIR__ . '/wp-layouts/header.php' ?>
@@ -20,7 +20,7 @@ $soreBerakhir = 24;
         <h2>Selamat Datang</h2>
     </div>
     <div class="d-flex justify-content-center">
-        <?php if (($jamSekarang >= $pagiMulai && $jamSekarang < $pagiBerakhir) || ($jamSekarang == $pagiBerakhir && $menitSekarang <= 30) || ($jamSekarang >= $soreMulai && $jamSekarang < $soreBerakhir) || ($jamSekarang == $soreBerakhir && $menitSekarang <= 30)) : ?>
+        <?php if (($jamSekarang >= $pagiMulai && $jamSekarang < $pagiBerakhir && !($jamSekarang == $pagiBerakhir && $menitSekarang >= 0 && $menitSekarang <= 30)) || ($jamSekarang >= $soreMulai && $jamSekarang < $soreBerakhir && !($jamSekarang == $soreBerakhir && $menitSekarang >= 0 && $menitSekarang <= 30))) : ?>
             <a href="karyawan/koridor"><button class="btn btn-lg btn-primary m-3 mx-5"><i class="fas fa-users"></i> Karyawan</button></a>
             <a href="admin/index"><button class="btn btn-lg btn-primary m-3 mx-5"><i class="fa fa-user"></i> Admin</button></a>
         <?php else : ?>

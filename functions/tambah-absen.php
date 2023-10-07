@@ -41,11 +41,11 @@ function upload($post)
 
 function editAbsen($request)
 {
-    global $pdo, $alasan, $alasanCek, $absenSore, $id_karyawan;
+    global $pdo, $alasan, $alasanCek, $absenSore, $idAbsen;
     $pembatas = ['```'];
     $alasanFinal = $alasanCek . '' . implode("", $pembatas) . '' . $alasan;
     $query = $pdo->prepare($request);
-    $query->execute([$alasanFinal, $absenSore, $id_karyawan]);
+    $query->execute([$alasanFinal, $absenSore, $idAbsen]);
 
     return $query;
 }
@@ -59,6 +59,7 @@ $alasan = htmlspecialchars($_POST['alasan']) ? htmlspecialchars($_POST['alasan']
 $alamat = $_POST['alamat'];
 
 date_default_timezone_set('Asia/Jakarta');
+$today = Carbon::now('Asia/Jakarta')->toDateString();
 $waktuSekarang = date('H:i');
 $jamSekarang = (int)explode(':', $waktuSekarang)[0];
 $menitSekarang = (int)explode(':', $waktuSekarang)[1];
@@ -70,9 +71,9 @@ $pagiBerakhir = 9;
 $soreMulai = 16;
 $soreBerakhir = 18;
 
-if (($jamSekarang >= $pagiMulai && $jamSekarang < $pagiBerakhir) || ($jamSekarang == $pagiBerakhir && $menitSekarang <= 30)) {
+if (($jamSekarang >= $pagiMulai && $jamSekarang < $pagiBerakhir && !($jamSekarang == $pagiBerakhir && $menitSekarang >= 0 && $menitSekarang <= 30))) {
     $absenPagiCek = $carbon->format('Y-m-d H:i:s');
-} elseif (($jamSekarang >= $soreMulai && $jamSekarang < $soreBerakhir) || ($jamSekarang == $soreBerakhir && $menitSekarang <= 30)) {
+} elseif (($jamSekarang >= $soreMulai && $jamSekarang < $soreBerakhir && !($jamSekarang == $soreBerakhir && $menitSekarang >= 0 && $menitSekarang <= 30))) {
     $absenSoreCek = $carbon->format('Y-m-d H:i:s');
 }
 
@@ -88,11 +89,12 @@ $queryEdit = tampilDataFirst("SELECT karyawan.*, absen.*
 ");
 
 if ($queryEdit) {
+    $idAbsen = $queryEdit->id_absen;
     $alasanCek = $queryEdit->alasan;
     $query = editAbsen("UPDATE absen SET
                         alasan = ?,
                         absen_sore = ?
-                        WHERE id_karyawan = ?
+                        WHERE id_absen = ?
             ");
     header('Location: ../karyawan/berhasil');
 } else {

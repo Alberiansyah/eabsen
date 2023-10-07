@@ -1,18 +1,5 @@
 <?php
 require __DIR__ . "/../connections/connections.php";
-// var_dump($_SESSION);
-// exit;
-date_default_timezone_set('Asia/Jakarta');
-$waktuSekarang = date('H:i');
-$jamSekarang = (int)explode(':', $waktuSekarang)[0];
-$menitSekarang = (int)explode(':', $waktuSekarang)[1];
-// Waktu absensi pagi: 06:00 - 09:00
-$pagiMulai = 6;
-$pagiBerakhir = 9;
-
-// Waktu absensi sore: 16:30 - 18:00
-$soreMulai = 16;
-$soreBerakhir = 24;
 ?>
 <?php require __DIR__ . '/../wp-layouts/header.php' ?>
 

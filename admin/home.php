@@ -1,19 +1,7 @@
 <?php
 require __DIR__ . "/../functions/functions.php";
 require __DIR__ . "/../functions/session-check.php";
-date_default_timezone_set('Asia/Jakarta');
-$waktuSekarang = date('H:i');
-$jamSekarang = (int)explode(':', $waktuSekarang)[0];
-$menitSekarang = (int)explode(':', $waktuSekarang)[1];
-// Waktu absensi pagi: 06:00 - 09:00
-$pagiMulai = 6;
-$pagiBerakhir = 9;
 
-// Waktu absensi sore: 16:30 - 18:00
-$soreMulai = 16;
-$soreBerakhir = 24;
-
-$query = tampilData("SELECT * FROM karyawan");
 ?>
 <?php require __DIR__ . '/../wp-layouts/header.php' ?>
 

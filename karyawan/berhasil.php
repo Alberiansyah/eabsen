@@ -11,7 +11,7 @@ $pagiBerakhir = 9;
 
 // Waktu absensi sore: 16:30 - 18:00
 $soreMulai = 16;
-$soreBerakhir = 24;
+$soreBerakhir = 18;
 
 $query = tampilData("SELECT * FROM karyawan");
 ?>
