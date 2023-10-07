@@ -88,10 +88,17 @@ $no = 1;
                         </div>
                     </div>
                 </div>
+                <div class="card-footer mt-5">
+                    <div class="row">
+                        <div class="col text-start">
+                            <a href="<?= $hostToRoot ?>admin/rekap-data"><button class="btn btn-primary"><i class="fas fa-arrow-left"></i> Kembali</button></a>
+                        </div>
+                        <div class="col text-end">
+                            <a href="<?= $hostToRoot ?>admin/logout"><button class="btn btn-primary"><i class="fas fa-sign-out-alt"></i> Logout</button></a>
+                        </div>
+                    </div>
+                </div>
             </div>
-        </div>
-        <div class="text-end m-5 screen-only">
-            <a href="<?= $hostToRoot ?>admin/logout"><button class="btn btn-primary"><i class="fas fa-sign-out-alt"></i> Logout</button></a>
         </div>
     </div>
 </div>

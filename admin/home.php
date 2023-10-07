@@ -16,9 +16,13 @@ require __DIR__ . "/../functions/session-check.php";
                     <a href="rekap-data"><button class="btn btn-lg btn-primary m-3 mx-5"><i class="fas fa-table"></i> Rekap Data</button></a>
                 </div>
             </div>
-        </div>
-        <div class="text-end m-5">
-            <a href="<?= $hostToRoot ?>admin/logout"><button class="btn btn-primary"><i class="fas fa-sign-out-alt"></i> Logout</button></a>
+            <div class="card-footer mt-5">
+                <div class="row">
+                    <div class="col text-end">
+                        <a href="<?= $hostToRoot ?>admin/logout"><button class="btn btn-primary"><i class="fas fa-sign-out-alt"></i> Logout</button></a>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
