@@ -33,68 +33,72 @@ $no = 1;
 <div class="container">
     <div class="row d-flex justify-content-center">
         <div class="col-xl-10 col-lg-10 col-md-12 col-sm-12">
-            <div class="row">
-                <div class="card">
-                    <div class="card-body d-flex justify-content-between align-items-center">
-                        <span class="d-none" id="koridor"><?= $koridor ?></span>
-                        <h5 class="card-title mb-4">Data rekap <?= $koridor ?>, <?= Carbon::parse($today)->isoFormat('dddd'); ?> <?= Carbon::parse($today)->translatedFormat('d F Y'); ?></h5>
-                        <div class="d-flex">
-                            <a href="cetak-subkoridor?koridor=<?= $koridor ?>" target="_blank" class="screen-only" title="Rekap PDF Per-hari"><button class="btn btn-sm btn-primary btn-indent"><i class="fas fa-file-pdf"></i></button></a>
-                            <a href="excel-subkoridor?koridor=<?= $koridor ?>" target="_blank" class="screen-only" id="to-excel" title="Rekap Excel Per-hari"><button class="btn btn-sm btn-primary btn-indent"><i class="fas fa-file-excel"></i></button></a>
-                            <a href="#" id="printButton" target="_blank" class="screen-only" title="Print"><button class="btn btn-sm btn-primary btn-indent"><i class="fa fa-print"></i></button></a>
+            <div class="container">
+                <div class="row">
+                    <div class="card">
+                        <div class="card-body d-flex justify-content-between align-items-center">
+                            <span class="d-none" id="koridor"><?= $koridor ?></span>
+                            <h5 class="card-title mb-4">Data rekap <?= $koridor ?>, <?= Carbon::parse($today)->isoFormat('dddd'); ?> <?= Carbon::parse($today)->translatedFormat('d F Y'); ?></h5>
+                            <div class="d-flex">
+                                <a href="cetak-subkoridor?koridor=<?= $koridor ?>" target="_blank" class="screen-only" title="Rekap PDF Per-hari"><button class="btn btn-sm btn-primary btn-indent"><i class="fas fa-file-pdf"></i></button></a>
+                                <a href="excel-subkoridor?koridor=<?= $koridor ?>" target="_blank" class="screen-only" id="to-excel" title="Rekap Excel Per-hari"><button class="btn btn-sm btn-primary btn-indent"><i class="fas fa-file-excel"></i></button></a>
+                                <a href="#" id="printButton" target="_blank" class="screen-only" title="Print"><button class="btn btn-sm btn-primary btn-indent"><i class="fa fa-print"></i></button></a>
+                            </div>
                         </div>
-                    </div>
-                    <div class="container mb-3 screen-only">
-                        <div class="row">
-                            <div class="col-3">
-                                <div class="form-group">
-                                    <select id="listBulan" class="form-control">
-                                        <option value="">-- Pilih Bulan --</option>
-                                        <?php foreach ($dataBulan as $data) : ?>
-                                            <option value="<?= $data ?>"><?= $data ?></option>
-                                        <?php endforeach; ?>
-                                    </select>
+                        <div class="container mb-3 screen-only">
+                            <div class="row">
+                                <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 mb-2">
+                                    <div class="form-group">
+                                        <select id="listBulan" class="form-control">
+                                            <option value="">-- Pilih Bulan --</option>
+                                            <?php foreach ($dataBulan as $data) : ?>
+                                                <option value="<?= $data ?>"><?= $data ?></option>
+                                            <?php endforeach; ?>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 mb-2">
+                                    <div class="form-group">
+                                        <a id="pilihBulan" disabled><button class="btn btn-xs btn-primary" disabled>Pilih</button></a>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="col-2">
-                                <a id="pilihBulan" disabled><button class="btn btn-xs btn-primary" disabled>Pilih</button></a>
+                        </div>
+                        <div class="container mb-3">
+                            <div class="table-responsive"> <!-- Tambahkan class table-responsive pada div ini -->
+                                <table class="table table-bordered table-hover">
+                                    <tr>
+                                        <th>No</th>
+                                        <th>Nama</th>
+                                        <th>Pagi</th>
+                                        <th>Sore</th>
+                                    </tr>
+                                    <?php if ($countQuery < 1) : ?>
+                                        <tr>
+                                            <td colspan="4" style="text-align: center;">Belum terdapat data.</td>
+                                        </tr>
+                                    <?php endif; ?>
+                                    <?php foreach ($query as $data) :
+                                    ?>
+                                        <tr>
+                                            <td><?= $no++ ?></td>
+                                            <td><?= $data->nama ?></td>
+                                            <td><?= $data->absen_pagi !== null ? Carbon::parse($data->absen_pagi)->translatedFormat('j F Y H:i:s') : '' ?></td>
+                                            <td><?= $data->absen_sore !== null ? Carbon::parse($data->absen_sore)->translatedFormat('j F Y H:i:s') : '' ?></td>
+                                        </tr>
+                                    <?php endforeach; ?>
+                                </table>
                             </div>
                         </div>
                     </div>
-                    <div class="container mb-3">
-                        <div class="table-responsive"> <!-- Tambahkan class table-responsive pada div ini -->
-                            <table class="table table-bordered table-hover">
-                                <tr>
-                                    <th>No</th>
-                                    <th>Nama</th>
-                                    <th>Pagi</th>
-                                    <th>Sore</th>
-                                </tr>
-                                <?php if ($countQuery < 1) : ?>
-                                    <tr>
-                                        <td colspan="4" style="text-align: center;">Belum terdapat data.</td>
-                                    </tr>
-                                <?php endif; ?>
-                                <?php foreach ($query as $data) :
-                                ?>
-                                    <tr>
-                                        <td><?= $no++ ?></td>
-                                        <td><?= $data->nama ?></td>
-                                        <td><?= $data->absen_pagi !== null ? Carbon::parse($data->absen_pagi)->translatedFormat('j F Y H:i:s') : '' ?></td>
-                                        <td><?= $data->absen_sore !== null ? Carbon::parse($data->absen_sore)->translatedFormat('j F Y H:i:s') : '' ?></td>
-                                    </tr>
-                                <?php endforeach; ?>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-                <div class="card-footer mt-5">
-                    <div class="row">
-                        <div class="col text-start">
-                            <a href="<?= $hostToRoot ?>admin/rekap-data"><button class="btn btn-primary"><i class="fas fa-arrow-left"></i> Kembali</button></a>
-                        </div>
-                        <div class="col text-end">
-                            <a href="<?= $hostToRoot ?>admin/logout"><button class="btn btn-primary"><i class="fas fa-sign-out-alt"></i> Logout</button></a>
+                    <div class="card-footer mt-5 mb-5">
+                        <div class="row">
+                            <div class="col text-start">
+                                <a href="<?= $hostToRoot ?>admin/rekap-data"><button class="btn btn-primary"><i class="fas fa-arrow-left"></i> Kembali</button></a>
+                            </div>
+                            <div class="col text-end">
+                                <a href="<?= $hostToRoot ?>admin/logout"><button class="btn btn-primary"><i class="fas fa-sign-out-alt"></i> Logout</button></a>
+                            </div>
                         </div>
                     </div>
                 </div>

@@ -25,10 +25,10 @@ if (($jamSekarang >= $pagiMulai && $jamSekarang < $pagiBerakhir && !($jamSekaran
 }
 ?>
 <?php require __DIR__ . '/../wp-layouts/header.php' ?>
-<div class="container d-flex justify-content-center mt-5">
-    <div class="col-6">
+<div class="container d-flex justify-content-center mt-5 mb-5">
+    <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12">
         <div class="row">
-            <div class="accordion accordion-flush" id="accordionFlushExample">
+            <div class="accordion" id="accordionFlushExample">
                 <div class="accordion-item">
                     <h2 class="accordion-header">
                         <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">

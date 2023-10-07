@@ -44,7 +44,7 @@ $query = tampilData("SELECT * FROM karyawan");
                     </div>
                 </div>
             </div>
-            <div class="card-footer mt-5">
+            <div class="card-footer mt-5 mb-5">
                 <div class="row">
                     <div class="col text-start">
                         <a href="<?= $hostToRoot ?>admin/home"><button class="btn btn-primary"><i class="fas fa-arrow-left"></i> Kembali</button></a>

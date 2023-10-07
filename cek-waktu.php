@@ -25,9 +25,13 @@ $query = tampilData("SELECT * FROM karyawan");
                     <h2>MOHON MAAF SESI ABSEN TELAH DITUTUP!</h2>
                 </div>
             </div>
-        </div>
-        <div class="text-end m-5">
-            <a href="<?= $hostToRoot ?>index"><button class="btn btn-primary">Kembali</button></a>
+            <div class="card-footer mt-5">
+                <div class="row">
+                    <div class="col text-end">
+                        <a href="<?= $hostToRoot ?>index"><button class="btn btn-primary">Kembali</button></a>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>

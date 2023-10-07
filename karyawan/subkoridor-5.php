@@ -27,7 +27,7 @@ $query = tampilData("SELECT * FROM karyawan WHERE kategori = 'Koridor 5'");
 ?>
 <?php require __DIR__ . '/../wp-layouts/header.php' ?>
 
-<div class="container">
+<div class="container mb-5">
     <div class="row d-flex justify-content-center">
         <div class="col-xl-8 col-lg-8 col-md-12 col-sm-12">
             <div class="card">
