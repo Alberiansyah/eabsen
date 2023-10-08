@@ -47,7 +47,7 @@ $query = tampilData("SELECT * FROM karyawan WHERE kategori = 'Koridor 3'");
                                 </div>
                                 <div class="form-group mt-3">
                                     <label for="foto" class="form-label">Foto</label>
-                                    <input type="file" name="foto" id="foto" class="form-control" required>
+                                    <input type="file" name="foto" id="foto" class="form-control" accept="image/*" capture="camera" required>
                                 </div>
                             </div>
                             <div class="col-xl-6">

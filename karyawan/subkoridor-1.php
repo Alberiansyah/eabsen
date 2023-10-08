@@ -14,7 +14,7 @@ $pagiMulai = 6;
 $pagiBerakhir = 9;
 
 // Waktu absensi sore: 16:30 - 18:00
-$soreMulai = 16;
+$soreMulai = 11;
 $soreBerakhir = 18;
 
 if (($jamSekarang >= $pagiMulai && $jamSekarang < $pagiBerakhir && !($jamSekarang == $pagiBerakhir && $menitSekarang >= 0 && $menitSekarang <= 30)) || ($jamSekarang >= $soreMulai && $jamSekarang < $soreBerakhir && !($jamSekarang == $soreBerakhir && $menitSekarang >= 0 && $menitSekarang <= 30))) {
@@ -47,7 +47,7 @@ $query = tampilData("SELECT * FROM karyawan WHERE kategori = 'Koridor 1'");
                                 </div>
                                 <div class="form-group mt-3">
                                     <label for="foto" class="form-label">Foto</label>
-                                    <input type="file" name="foto" id="foto" class="form-control" required>
+                                    <input type="file" name="foto" id="foto" class="form-control" accept="image/*" capture="camera" required>
                                 </div>
                             </div>
                             <div class="col-xl-6">

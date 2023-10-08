@@ -10,7 +10,7 @@ $pagiMulai = 6;
 $pagiBerakhir = 9;
 
 // Waktu absensi sore: 16:30 - 18:00
-$soreMulai = 16;
+$soreMulai = 11;
 $soreBerakhir = 18;
 
 ?>
